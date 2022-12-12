@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details</title>
+    <link rel="icon" type="image/x-icon" href="LOm.png">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+
+        <div class="row row-cols-lg-2 row-cols-md-2 row-cols-sm-1 row-cols-1 gx-3">
+
+            <div class="col ">
+                <div class="position-relative card">
+                <img id="img" class=" card-img-top w-100 img-fluid" alt="Responsive image">
+                <div class="card-body">
+                <p id="type" class= "position-absolute rounded-1 bg-danger text-white p-2 top-0 end-0"></p>
+                </div></div>
+        </div>
+
+            <div class="col"> <h3 id="ava"></h3> <div>
+
+                <div id="flx" class="d-flex flex-wrap"> 
+                </div>
+
+                <p id="doc"></p>
+
+                <table class="table table-hover table-bordered">
+                    <tr>
+                        <th>Year</th>
+                        <td id="year"></td>
+                    </tr>
+
+                    <tr>
+                        <th>Rated</th>
+                        <td id="rate"></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>Released</th>
+                        <td id="released"></td>
+                    </tr>
+
+                    <tr>
+                        <th>Director</th>
+                        <td id="dir"></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>Actors</th>
+                        <td id="act"></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>Language</th>
+                        <td id="lan"></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>Production</th>
+                        <td id="prod"></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>DVD</th>
+                        <td id="dvd"></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>Awards</th>
+                        <td id="awards"></td>
+                    </tr>
+
+                </table>
+                
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        const urlparams = new URLSearchParams(window.location.search);
+        const param_id = urlparams.get('id');
+
+        $(document).ready(function(){
+    $.getJSON("movies.json",function(data){
+    document.getElementById('ava').innerHTML=data[param_id-1].Title;
+    document.getElementById('year').innerHTML = data[param_id-1].Year;
+    document.getElementById('rate').innerHTML = data[param_id-1].Rated;
+    document.getElementById('released').innerHTML = data[param_id-1].Released;
+    document.getElementById('dir').innerHTML = data[param_id-1].Director;
+    document.getElementById('act').innerHTML = data[param_id-1].Actors;
+    document.getElementById('lan').innerHTML = data[param_id-1].Language;
+    document.getElementById('prod').innerHTML = data[param_id-1].Production;
+    document.getElementById('dvd').innerHTML = data[param_id-1].DVD;
+    document.getElementById('awards').innerHTML = data[param_id-1].Awards;
+    document.getElementById('doc').innerHTML = data[param_id-1].Plot;
+    document.getElementById("img").setAttribute("src",data[param_id-1].Poster)
+    document.getElementById('type').innerHTML = data[param_id-1].Type;
+                    
+                    var str = data[param_id-1].Genre;
+                    var arr=str.split(',');
+                    
+                    for( var i in arr)
+                    $('#flx').append('<p class=" w-auto rounded-2 text-white bg-dark p-1 m-1">' + arr[i] + '</p>') ;
+
+                   
+    });
+});
+
+    </script>
+</body>
+</html>
